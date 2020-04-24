@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>	
+    {% load static %}
+    {% load crispy_forms_tags %}
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Navigation</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Display
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/Display/Renewal">GIC Renewal</a>
+                        <a class="dropdown-item" href="/Display/Purchase">GIC Purchase</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Download
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/Download/Renewal">GIC Renewal</a>
+                        <a class="dropdown-item" href="/Download/Purchase">GIC Purchase</a>
+                    </div>
+                </li>
+            </ul>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+	
+    <div class = "jumbotron jumbotron-fluid text-white text-center" style = "background: #16B4E8">
+        <div class = "container">
+            <h1 class = "display-1">Oaken GIC Predictive Download</h1>
+            <h4>By Steven Shen and Farhan Kamal</h4>
+        </div>
+    </div>
+    
+    <h2 class = "display-4 text-center">Brief Description</h2>
+    
+    <div class = "container">
+        <p>The purpose of this tool is to provide a summary of a table of account holders by using the predictive modeling to infer whether, given a certain week number, the specificed account holder(s) will buy a or renew their GIC</p>
+        <p>To use this tool, one must upload a .csv file with the follow specifications:</p>
+        <ul>
+           <li>Account Holder Number or (BP Number) in the first column;</li>
+           <li>Week Number (for example, January 1, 2020 would have week number 1 and December 31, 2020 would have week 53) in the second column;</li>
+       </ul>
+       <p>Outputted will be a .csv file with 3 columns with the first two being the original inputted columns and the third being the predicted status. Please note that True represents the Account Holder will buy a /renew their GIC during the specified week number</p>
+    </div>
+    
+    <div class = "container py-20">
+        <h3>File Upload</h3>
+        <p>Please upload a .csv file containing the holders and week numbers of the account holders that you are interested in. The .csv file should contain at least 3 fields (with the headers named accordingly): Target (GIC Purchase or GIC Renewal), Holder ID and week number.</p>
+        <label for="file">File Upload</label>
+        <form method='post' class = "form-inline" enctype = "multipart/form-data">
+            <div class = "form-group mb-2">	
+                {% csrf_token %}
+                <input type="file" class = "form-control-file" id="file" name = "file">
+            </div>
+            <div class = "form-group mb-2">
+                <button type="submit">Predict</button>
+            </div>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>		
+</body>
+</html>
